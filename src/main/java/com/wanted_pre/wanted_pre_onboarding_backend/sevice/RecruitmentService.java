@@ -31,12 +31,20 @@ public class RecruitmentService {
 
     @Transactional
     public void putRecruitment(final Long recruitmentId, final RecruitmentUpdateRequest request) {
-
         //1. 채용 공고 존재 여부 찾기
         Recruitment recruitment = recruitmentRepository.findById(recruitmentId).orElseThrow(() -> new NotFoundException(ErrorCode.RECRUITMENT_NOT_FOUND_EXCEPTION));
 
         //2. 내용 업데이트
         recruitment.update(request.reward(), request.position(), request.detail(), request.skill());
         recruitmentRepository.save(recruitment);
+    }
+
+    @Transactional
+    public void deleteRecruitment(final Long recruitmentId){
+        //1. 채용 공고 존재 여부 찾기
+        Recruitment recruitment = recruitmentRepository.findById(recruitmentId).orElseThrow(() -> new NotFoundException(ErrorCode.RECRUITMENT_NOT_FOUND_EXCEPTION));
+
+        //2. 삭제
+        recruitmentRepository.delete(recruitment);
     }
 }
