@@ -16,6 +16,7 @@ public enum ErrorCode {
 
     //404
     USER_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "해당 유저는 존재하지 않습니다."),
+    ENTERPRISE_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "해당 회사는 존재하지 않습니다."),
     NOT_FOUND_RESOURCE_EXCEPTION(HttpStatus.NOT_FOUND, "해당 자원을 찾을 수 없습니다."),
 
     // 405 METHOD_NOT_ALLOWED
