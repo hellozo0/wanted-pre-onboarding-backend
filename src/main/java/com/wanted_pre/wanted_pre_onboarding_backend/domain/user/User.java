@@ -1,5 +1,6 @@
-package com.wanted_pre.wanted_pre_onboarding_backend.domain;
+package com.wanted_pre.wanted_pre_onboarding_backend.domain.user;
 
+import com.wanted_pre.wanted_pre_onboarding_backend.domain.BaseTimeEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends BaseTimeEntity{
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
