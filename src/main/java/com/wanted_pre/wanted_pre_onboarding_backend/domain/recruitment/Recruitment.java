@@ -42,10 +42,17 @@ public class Recruitment extends BaseTimeEntity {
     private Enterprise enterprise;
 
     public Recruitment(int reward, String position, String detail, String skill, Enterprise enterprise) {
-        this.reward = reward;
+        this.enterprise = enterprise;
         this.position = position;
+        this.reward = reward;
         this.detail = detail;
         this.skill = skill;
-        this.enterprise = enterprise;
+    }
+
+    public void update(int reward, String position, String detail, String skill) {
+        this.position = position;
+        this.reward = reward;
+        this.detail = detail;
+        this.skill = skill;
     }
 }
