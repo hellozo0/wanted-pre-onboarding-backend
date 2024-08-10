@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -51,6 +52,18 @@ public class RecruitmentController {
     public SuccessNonDataResponse updateRecruitment(@PathVariable(value = "recruitmentId") Long recruitmentId, @Valid @RequestBody RecruitmentUpdateRequest recruitmentUpdateRequest) {
         recruitmentService.putRecruitment(recruitmentId, recruitmentUpdateRequest);
         return SuccessNonDataResponse.success(SuccessCode.UPDATE_RECRUITMENT_SUCCESS);
+    }
+
+    @Operation(summary = "채용공고 삭제", description = "채용 공고 삭제 API입니다.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "채용공고 삭제 성공", content = @Content(schema = @Schema(implementation = SuccessNonDataResponse.class))),
+            @ApiResponse(responseCode = "404", description = "해당 채용공고를 찾을 수 없습니다.", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "서버 내부 오류 입니다.", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+    })
+    @DeleteMapping("/{recruitmentId}")
+    public SuccessNonDataResponse removeRecruitment(@PathVariable(value = "recruitmentId") Long recruitmentId) {
+        recruitmentService.deleteRecruitment(recruitmentId);
+        return SuccessNonDataResponse.success(SuccessCode.DELETE_RECRUITMENT_SUCCESS);
     }
 
 }
