@@ -1,4 +1,4 @@
-package com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.recruitment;
+package com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.request;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
