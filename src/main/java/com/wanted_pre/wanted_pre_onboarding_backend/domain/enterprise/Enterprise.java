@@ -27,6 +27,6 @@ public class Enterprise extends BaseTimeEntity {
     private String country;
 
     @NotNull
-    private String city;
+    private String location;
 
 }

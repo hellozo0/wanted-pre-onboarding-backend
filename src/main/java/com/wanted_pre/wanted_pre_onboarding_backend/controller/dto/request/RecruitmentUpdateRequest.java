@@ -1,4 +1,4 @@
-package com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.recruitment;
+package com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

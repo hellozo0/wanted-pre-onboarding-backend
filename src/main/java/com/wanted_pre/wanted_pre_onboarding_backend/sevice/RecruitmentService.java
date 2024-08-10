@@ -2,8 +2,9 @@ package com.wanted_pre.wanted_pre_onboarding_backend.sevice;
 
 import com.wanted_pre.wanted_pre_onboarding_backend.common.exception.enums.ErrorCode;
 import com.wanted_pre.wanted_pre_onboarding_backend.common.exception.model.NotFoundException;
-import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.recruitment.RecruitmentCreateRequest;
-import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.recruitment.RecruitmentUpdateRequest;
+import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.request.RecruitmentCreateRequest;
+import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.request.RecruitmentUpdateRequest;
+import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.response.RecruitmentReadResponse;
 import com.wanted_pre.wanted_pre_onboarding_backend.domain.enterprise.Enterprise;
 import com.wanted_pre.wanted_pre_onboarding_backend.domain.recruitment.Recruitment;
 import com.wanted_pre.wanted_pre_onboarding_backend.repository.EnterpriseRepository;
@@ -11,6 +12,10 @@ import com.wanted_pre.wanted_pre_onboarding_backend.repository.RecruitmentReposi
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -46,5 +51,24 @@ public class RecruitmentService {
 
         //2. 삭제
         recruitmentRepository.delete(recruitment);
+    }
+
+    public List<RecruitmentReadResponse> getRecruitment() {
+        List<Recruitment> recruitmentList = recruitmentRepository.findAll();
+
+        List<RecruitmentReadResponse> recruitmentReadResponseList = recruitmentList.stream().map( recruitment -> {
+            RecruitmentReadResponse  recruitmentReadResponse = new RecruitmentReadResponse(
+                    recruitment.getId(),
+                    recruitment.getEnterprise().getName(),
+                    recruitment.getEnterprise().getCountry(),
+                    recruitment.getEnterprise().getLocation(),
+                    recruitment.getPosition(),
+                    recruitment.getReward(),
+                    recruitment.getSkill()
+            );
+            return recruitmentReadResponse;
+        }).collect(Collectors.toList());
+
+        return recruitmentReadResponseList;
     }
 }

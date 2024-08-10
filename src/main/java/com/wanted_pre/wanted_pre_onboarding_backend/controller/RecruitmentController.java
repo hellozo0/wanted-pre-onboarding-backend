@@ -2,9 +2,11 @@ package com.wanted_pre.wanted_pre_onboarding_backend.controller;
 
 import com.wanted_pre.wanted_pre_onboarding_backend.common.dto.ErrorResponse;
 import com.wanted_pre.wanted_pre_onboarding_backend.common.dto.SuccessNonDataResponse;
+import com.wanted_pre.wanted_pre_onboarding_backend.common.dto.SuccessResponse;
 import com.wanted_pre.wanted_pre_onboarding_backend.common.exception.enums.SuccessCode;
-import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.recruitment.RecruitmentCreateRequest;
-import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.recruitment.RecruitmentUpdateRequest;
+import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.request.RecruitmentCreateRequest;
+import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.request.RecruitmentUpdateRequest;
+import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.response.RecruitmentReadResponse;
 import com.wanted_pre.wanted_pre_onboarding_backend.sevice.RecruitmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,12 +17,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Tag(name = "Recruitment Controller", description = "채용공고 관련 API 입니다.")
 @RestController
@@ -64,6 +69,16 @@ public class RecruitmentController {
     public SuccessNonDataResponse removeRecruitment(@PathVariable(value = "recruitmentId") Long recruitmentId) {
         recruitmentService.deleteRecruitment(recruitmentId);
         return SuccessNonDataResponse.success(SuccessCode.DELETE_RECRUITMENT_SUCCESS);
+    }
+
+    @Operation(summary = "채용공고 전체 조회", description = "채용 공고 전체 조회 API입니다.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "채용공고 전체조회 성공", content = @Content(schema = @Schema(implementation = SuccessNonDataResponse.class))),
+            @ApiResponse(responseCode = "500", description = "서버 내부 오류 입니다.", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+    })
+    @GetMapping
+    public SuccessResponse<List<RecruitmentReadResponse>> readRecruitment() {
+        return SuccessResponse.success(SuccessCode.GET_RECRUITMENT_SUCCESS, recruitmentService.getRecruitment());
     }
 
 }
