@@ -40,4 +40,12 @@ public class Recruitment extends BaseTimeEntity {
     @JoinColumn(name = "enterprise_id")
     @NotNull
     private Enterprise enterprise;
+
+    public Recruitment(int reward, String position, String detail, String skill, Enterprise enterprise) {
+        this.reward = reward;
+        this.position = position;
+        this.detail = detail;
+        this.skill = skill;
+        this.enterprise = enterprise;
+    }
 }
