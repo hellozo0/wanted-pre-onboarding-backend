@@ -38,9 +38,15 @@
 </div>
 </details>
 
+<br>
+
+
 ## 💻 API 명세서
 
 [API 명세서 보러가기](https://hellozo0.notion.site/Wanted-API-22872ce2888d4de9865c39adb50c37bd?pvs=4)
+
+<br>
+
 
 ## 💻 기술 스택
 
@@ -94,6 +100,8 @@ disabled: true
 </div>
 </details>
 
+<br>
+
 
 ## 🔨 Project Structure
 ```
@@ -126,9 +134,12 @@ disabled: true
 │      └─templates
 └─📁 test
 ```
+<br>
 
 ## 🛠️ ERD
-![스크린샷 2024-08-11 오후 11.32.29.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fyp%2Fcz9835td3tn151zs4j6zxj6m0000gn%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_i4sLvH%2F%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202024-08-11%20%EC%98%A4%ED%9B%84%2011.32.29.png)
+<img width="385" alt="스크린샷 2024-08-11 오후 11 33 03" src="https://github.com/user-attachments/assets/75bac0b1-db57-474c-9317-3117c577df7b">
+
+<br>
 
 ## 🌳 Branch
 
