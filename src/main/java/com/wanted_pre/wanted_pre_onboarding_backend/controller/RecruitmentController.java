@@ -9,6 +9,7 @@ import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.request.Recru
 import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.response.RecruitmentReadResponse;
 import com.wanted_pre.wanted_pre_onboarding_backend.sevice.RecruitmentService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -79,6 +81,16 @@ public class RecruitmentController {
     @GetMapping
     public SuccessResponse<List<RecruitmentReadResponse>> readRecruitment() {
         return SuccessResponse.success(SuccessCode.GET_RECRUITMENT_SUCCESS, recruitmentService.getRecruitment());
+    }
+
+    @Operation(summary = "채용공고 검색 조회", description = "채용 공고 검색 조회 API입니다.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "채용공고 검색조회 성공", content = @Content(schema = @Schema(implementation = SuccessNonDataResponse.class))),
+            @ApiResponse(responseCode = "500", description = "서버 내부 오류 입니다.", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+    })
+    @GetMapping("/v2")
+    public SuccessResponse<List<RecruitmentReadResponse>> searchRecruitment(@Parameter(name = "search", description = "회사명/기술명") @RequestParam(value = "search") String search) {
+        return SuccessResponse.success(SuccessCode.GET_RECRUITMENT_SUCCESS, recruitmentService.getRecruitmentBySearch(search));
     }
 
 }
