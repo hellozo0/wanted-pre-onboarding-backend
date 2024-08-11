@@ -4,6 +4,7 @@ import com.wanted_pre.wanted_pre_onboarding_backend.common.exception.enums.Error
 import com.wanted_pre.wanted_pre_onboarding_backend.common.exception.model.NotFoundException;
 import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.request.RecruitmentCreateRequest;
 import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.request.RecruitmentUpdateRequest;
+import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.response.DetailRecruitmentReadResponse;
 import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.response.RecruitmentReadResponse;
 import com.wanted_pre.wanted_pre_onboarding_backend.domain.enterprise.Enterprise;
 import com.wanted_pre.wanted_pre_onboarding_backend.domain.recruitment.Recruitment;
@@ -81,9 +82,28 @@ public class RecruitmentService {
         if(recruitmentList.size() == 0) return new ArrayList<>();
 
         return getRecruitmentResponse(recruitmentList);
-
-
     }
+
+    public DetailRecruitmentReadResponse getDetailRecruitment(final Long recruitmentId){
+        Recruitment recruitment = recruitmentRepository.findById(recruitmentId).orElseThrow(() -> new NotFoundException(ErrorCode.RECRUITMENT_NOT_FOUND_EXCEPTION));
+
+        List<Long> anotherRecruitmentIdList = recruitmentRepository.findRecruitmentIdsByEnterpriseId(recruitment.getEnterprise().getId(), recruitmentId);
+
+        DetailRecruitmentReadResponse detailRecruitmentReadResponse = new DetailRecruitmentReadResponse(
+                recruitmentId,
+                recruitment.getEnterprise().getName(),
+                recruitment.getEnterprise().getCountry(),
+                recruitment.getEnterprise().getLocation(),
+                recruitment.getPosition(),
+                recruitment.getReward(),
+                recruitment.getSkill(),
+                recruitment.getDetail(),
+                anotherRecruitmentIdList
+        );
+
+        return detailRecruitmentReadResponse;
+    }
+
 
     private List<RecruitmentReadResponse> getRecruitmentResponse(List<Recruitment> recruitmentList) {
         List<RecruitmentReadResponse> recruitmentReadResponseList = recruitmentList.stream().map( recruitment -> {
