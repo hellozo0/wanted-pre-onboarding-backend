@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,6 +58,34 @@ public class RecruitmentService {
     public List<RecruitmentReadResponse> getRecruitment() {
         List<Recruitment> recruitmentList = recruitmentRepository.findAll();
 
+        return getRecruitmentResponse(recruitmentList);
+    }
+
+    public List<RecruitmentReadResponse> getRecruitmentBySearch(String search){
+        //1. 만약 빈 문자열일 때 null 에러 나는거 피하기 위해
+        if(search == null) search = "";
+
+        //2. 회사명으로 검색
+        List<Recruitment> recruitmentListByEnterprise = recruitmentRepository.findByEnterpriseNameContainingIgnoreCase(search);
+
+        //3. 기술명으로 검색
+        List<Recruitment> recruitmentListBySkill = recruitmentRepository.findBySkillContainingIgnoreCase(search);
+
+        //4. 합치기(중복제거)
+        Set<Recruitment> recruitmentSet = new LinkedHashSet<>(recruitmentListByEnterprise);
+        recruitmentSet.addAll(recruitmentListBySkill);
+
+        List<Recruitment> recruitmentList = new ArrayList<>(recruitmentSet);
+
+        //5. 만약 검색 결과가 없다면
+        if(recruitmentList.size() == 0) return new ArrayList<>();
+
+        return getRecruitmentResponse(recruitmentList);
+
+
+    }
+
+    private List<RecruitmentReadResponse> getRecruitmentResponse(List<Recruitment> recruitmentList) {
         List<RecruitmentReadResponse> recruitmentReadResponseList = recruitmentList.stream().map( recruitment -> {
             RecruitmentReadResponse  recruitmentReadResponse = new RecruitmentReadResponse(
                     recruitment.getId(),
@@ -69,6 +99,6 @@ public class RecruitmentService {
             return recruitmentReadResponse;
         }).collect(Collectors.toList());
 
-        return recruitmentReadResponseList;
+        return  recruitmentReadResponseList;
     }
 }
