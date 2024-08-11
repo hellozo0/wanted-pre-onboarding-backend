@@ -6,7 +6,9 @@ import com.wanted_pre.wanted_pre_onboarding_backend.common.dto.SuccessResponse;
 import com.wanted_pre.wanted_pre_onboarding_backend.common.exception.enums.SuccessCode;
 import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.request.RecruitmentCreateRequest;
 import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.request.RecruitmentUpdateRequest;
+import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.response.DetailRecruitmentReadResponse;
 import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.response.RecruitmentReadResponse;
+import com.wanted_pre.wanted_pre_onboarding_backend.domain.recruitment.Recruitment;
 import com.wanted_pre.wanted_pre_onboarding_backend.sevice.RecruitmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -91,6 +93,16 @@ public class RecruitmentController {
     @GetMapping("/v2")
     public SuccessResponse<List<RecruitmentReadResponse>> searchRecruitment(@Parameter(name = "search", description = "회사명/기술명") @RequestParam(value = "search") String search) {
         return SuccessResponse.success(SuccessCode.GET_RECRUITMENT_SUCCESS, recruitmentService.getRecruitmentBySearch(search));
+    }
+
+    @Operation(summary = "채용공고 상세 조회", description = "채용공고 상세 조회 API입니다.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "채용공고 상세 조회 성공", content = @Content(schema = @Schema(implementation = SuccessNonDataResponse.class))),
+            @ApiResponse(responseCode = "500", description = "서버 내부 오류 입니다.", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+    })
+    @GetMapping("/detail/{recruitmentId}")
+    public SuccessResponse<DetailRecruitmentReadResponse> readDetailRecruitment(@PathVariable(value = "recruitmentId") Long recruitmentId) {
+        return SuccessResponse.success(SuccessCode.GET_DETAIL_RECRUITMENT_SUCCESS, recruitmentService.getDetailRecruitment(recruitmentId));
     }
 
 }
