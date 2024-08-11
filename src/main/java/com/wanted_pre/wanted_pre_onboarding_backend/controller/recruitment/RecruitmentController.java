@@ -1,15 +1,14 @@
-package com.wanted_pre.wanted_pre_onboarding_backend.controller;
+package com.wanted_pre.wanted_pre_onboarding_backend.controller.recruitment;
 
 import com.wanted_pre.wanted_pre_onboarding_backend.common.dto.ErrorResponse;
 import com.wanted_pre.wanted_pre_onboarding_backend.common.dto.SuccessNonDataResponse;
 import com.wanted_pre.wanted_pre_onboarding_backend.common.dto.SuccessResponse;
 import com.wanted_pre.wanted_pre_onboarding_backend.common.exception.enums.SuccessCode;
-import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.request.RecruitmentCreateRequest;
-import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.request.RecruitmentUpdateRequest;
-import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.response.DetailRecruitmentReadResponse;
-import com.wanted_pre.wanted_pre_onboarding_backend.controller.dto.response.RecruitmentReadResponse;
-import com.wanted_pre.wanted_pre_onboarding_backend.domain.recruitment.Recruitment;
-import com.wanted_pre.wanted_pre_onboarding_backend.sevice.RecruitmentService;
+import com.wanted_pre.wanted_pre_onboarding_backend.controller.recruitment.dto.request.RecruitmentCreateRequest;
+import com.wanted_pre.wanted_pre_onboarding_backend.controller.recruitment.dto.request.RecruitmentUpdateRequest;
+import com.wanted_pre.wanted_pre_onboarding_backend.controller.recruitment.dto.response.DetailRecruitmentReadResponse;
+import com.wanted_pre.wanted_pre_onboarding_backend.controller.recruitment.dto.response.RecruitmentReadResponse;
+import com.wanted_pre.wanted_pre_onboarding_backend.sevice.recruitment.RecruitmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
