@@ -25,6 +25,7 @@ public enum ErrorCode {
 
     // 409 Conflict
     ALREADY_EXIST_USER_EXCEPTION(HttpStatus.CONFLICT, "이미 존재하는 유저입니다."),
+    ALREADY_EXIST_EXCEPTION(HttpStatus.CONFLICT, "이미 지원되었습니다."),
 
     // 500
     INTERNAL_SERVER_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 오류입니다.");

@@ -1,7 +1,8 @@
-package com.wanted_pre.wanted_pre_onboarding_backend.domain.user;
+package com.wanted_pre.wanted_pre_onboarding_backend.domain.apply;
 
 import com.wanted_pre.wanted_pre_onboarding_backend.domain.BaseTimeEntity;
 import com.wanted_pre.wanted_pre_onboarding_backend.domain.recruitment.Recruitment;
+import com.wanted_pre.wanted_pre_onboarding_backend.domain.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -33,4 +34,9 @@ public class Apply extends BaseTimeEntity {
     @JoinColumn(name = "recruitment_id")
     @NotNull
     private Recruitment recruitment;
+
+    public Apply(User user, Recruitment recruitment) {
+        this.user = user;
+        this.recruitment = recruitment;
+    }
 }
